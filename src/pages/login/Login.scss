@@ -1,0 +1,71 @@
+
+$size: 20px;
+$speed: 1.5s;
+$color: src("./logo.png");
+
+
+
+.motionblur {
+    
+  width: $size * 3;
+  height: $size;
+  animation: slide $speed cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate;
+}
+
+.box {
+  position: absolute;
+  left: calc(50% - 10px);
+  width: $size;
+  height: 100%;
+  background-image: $color;
+  animation: slide $speed cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite alternate;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    width: $size * 2;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(#632, 0.5) 50%, rgba(#632, 0) 100%);
+    transform-origin: 0 0;
+    animation: scale $speed * 2 cubic-bezier(0.445, 0.050, 0.550, 0.950) -$speed infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    left: -$size;
+    width: $size * 2;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(#632, 0) 0%, rgba(rgb(106, 42, 158), 0.5) 50%);
+    transform-origin: 100% 0;
+    animation: scale $speed * 2 cubic-bezier(0.445, 0.050, 0.550, 0.950) infinite;
+  }
+}
+
+
+.system {
+  position: relative;
+bottom: 20px;
+  left: 250px;
+  background: 50% 100% / 50% 50% no-repeat
+              radial-gradient(ellipse at bottom, rgb(0, 0, 0), transparent, transparent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 20px;
+  font-family: "Source Sans Pro", sans-serif;
+  animation: reveal 3000ms ease-in-out forwards 200ms,
+             glow 2500ms linear infinite 2000ms;
+
+  @keyframes reveal {
+   
+    100% {
+      background-size: 300% 300%;
+    }
+  }
+  @keyframes glow {
+    60% {
+      text-shadow: 0 0 2px rgb(0, 0, 0);
+    }
+  }
+}  
