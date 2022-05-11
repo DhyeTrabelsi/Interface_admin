@@ -106,13 +106,13 @@ export default function Dashboard(props) {
                 <Button onClick={() => console.log(value, tableMeta) }
                 variant="contained"
                 size="medium"
-                style={{marginRight: 12}}
+                style={{marginRight : 12}}
                 color="secondary"
               >
                 <Icons.Delete />Delete
               </Button>
                <Button onClick={() => console.log(value, tableMeta) }
-                    style={{marginRight: -70}}
+                    style={{marginRight : -70}}
 
                variant="contained"
                size="medium"
@@ -167,7 +167,7 @@ export default function Dashboard(props) {
             {isLoading && (
               <CircularProgress
                 size={24}
-                style={{ marginLeft: 15, position: "relative", top: 10 }}
+                style={{ marginLeft : 15, position: "relative", top : 10 }}
               />
             )}
           </div>

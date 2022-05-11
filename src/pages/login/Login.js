@@ -9,8 +9,9 @@ import {
   TextField,
   Fade,
 } from "@material-ui/core";
-import { withRouter } from "react-router-dom";
-
+import {  withRouter } from "react-router-dom";
+import axios from 'axios';
+import { useUserDispatch, loginUser } from "../../context/UserContext";
 // styles
 import useStyles from "./styles";
 import "./Login.scss";
@@ -18,23 +19,52 @@ import "./Login.scss";
 // logo
 import logo from "./logo.png";
 
-// context
-import { useUserDispatch, loginUser } from "../../context/UserContext";
+
 
 function Login(props) {
   var classes = useStyles();
-
-  // global
   var userDispatch = useUserDispatch();
-
-  // local
-  var [isLoading, setIsLoading] = useState(false);
-  var [error, setError] = useState(null);
+  var [isLoading,setIsLoading ] = useState(false);
+  var [error,setError] = useState(null);
   var [activeTabId, setActiveTabId] = useState(0);
-
   var [loginValue, setLoginValue] = useState("");
   var [passwordValue, setPasswordValue] = useState("");
+  
 
+  const loginhandle = async(e) =>{
+    const article = { "username": String(loginValue), "password":String(passwordValue)};
+
+    console.log(article);
+    await axios({
+      headers: { 'Content-Type': 'application/json'},
+      method: 'post',
+      url:'http://127.0.0.1:8000/api/login/admin/',
+      data: article,
+    }).then(response=>{
+      console.log(article);
+      loginUser(
+        userDispatch,
+        loginValue,
+        passwordValue,
+        props.history,
+        setIsLoading,
+        setError,
+      );
+     
+      
+        })
+        .catch((error) => {
+        console.log('error')
+        if(error.response.status === 401){
+          if(error.response.data.detail ===  'admin not found!'){
+            setError('administrateur introuvable !');
+          }
+          if(error.response.data.detail ===  'Incorrect password!'){
+            setError('Mot de passe incorrect !');
+
+          }}
+      })
+}
   return (
     <Grid container className={classes.container}>
       
@@ -62,13 +92,9 @@ function Login(props) {
            
               
     
-              <Fade in={error}>
-                <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your login or password :(
-                </Typography>
-              </Fade>
+           
               <TextField
-                id="email"
+                id="nom d'utilisateur"
                 InputProps={{
                   classes: {
                     underline: classes.textFieldUnderline,
@@ -78,12 +104,13 @@ function Login(props) {
                 value={loginValue}
                 onChange={e => setLoginValue(e.target.value)}
                 margin="normal"
-                placeholder="Email Adress"
-                type="email"
                 fullWidth
+                placeholder="nom d'utilisateur"
+
+                required
               />
               <TextField
-                id="password"
+                id="mot de passe"
                 InputProps={{
                   classes: {
                     underline: classes.textFieldUnderline,
@@ -93,9 +120,10 @@ function Login(props) {
                 value={passwordValue}
                 onChange={e => setPasswordValue(e.target.value)}
                 margin="normal"
-                placeholder="Password"
+                placeholder="mot de passe"
                 type="password"
                 fullWidth
+                required
               />
               <div className={classes.formButtons}>
                 {isLoading ? (
@@ -105,15 +133,8 @@ function Login(props) {
                     disabled={
                       loginValue.length === 0 || passwordValue.length === 0
                     }
-                    onClick={() =>
-                      loginUser(
-                        userDispatch,
-                        loginValue,
-                        passwordValue,
-                        props.history,
-                        setIsLoading,
-                        setError,
-                      )
+                    onClick={() => loginhandle()
+                     
                     }
                     variant="contained"
                     color="primary"
@@ -129,7 +150,13 @@ function Login(props) {
                 >
                   Forget Password
                 </Button>
+               
               </div>
+              <Fade in={error}>
+                <Typography color="secondary" className={classes.errorMessage}>
+                {error}
+                </Typography>
+              </Fade>
             </React.Fragment>
           )}
          
