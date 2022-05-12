@@ -3,6 +3,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 
 import Box from '@mui/material/Box';
+import { useHistory } from "react-router-dom";
 
 import TextField from '@mui/material/TextField';
 import * as icons from '@mui/icons-material';
@@ -15,7 +16,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import Widget from "../../components/Widget/Widget";
 export default function Profile_pat() {
   const [Sexe, setSexe] = React.useState('');
-const id =3;
+const history = useHistory();
 
   function handleChange(e) {
     setSexe(e.target.value);
@@ -34,7 +35,7 @@ const id =3;
           disabled
           id="standard-disabled"
           label="Identificateur"
-          defaultValue={id}
+          defaultValue={history.location.pathname.charAt(history.location.pathname.length - 1)}
           variant="standard"
         />  
         </Box>

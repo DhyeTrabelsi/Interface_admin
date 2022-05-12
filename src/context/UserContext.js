@@ -59,7 +59,7 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
       setError(null)
       setIsLoading(false)
       dispatch({ type: 'LOGIN_SUCCESS' })
-
+      localStorage.setItem('username',login)
      
     }, 2000);
   } else {
@@ -71,6 +71,9 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 
 function signOut(dispatch, history) {
   localStorage.removeItem("id_token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("authTokens");
+
   dispatch({ type: "SIGN_OUT_SUCCESS" });
   history.push("/login");
 }

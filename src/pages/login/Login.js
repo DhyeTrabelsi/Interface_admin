@@ -32,16 +32,14 @@ function Login(props) {
   
 
   const loginhandle = async(e) =>{
-    const article = { "username": String(loginValue), "password":String(passwordValue)};
+    const LoginJson = { "username": String(loginValue), "password":String(passwordValue)};
 
-    console.log(article);
     await axios({
       headers: { 'Content-Type': 'application/json'},
       method: 'post',
       url:'http://127.0.0.1:8000/api/login/admin/',
-      data: article,
+      data: LoginJson,
     }).then(response=>{
-      console.log(article);
       loginUser(
         userDispatch,
         loginValue,

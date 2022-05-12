@@ -3,17 +3,16 @@ import { CircularProgress } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import * as Icons from "@material-ui/icons";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import {Button} from "@material-ui/core";
+import axios from 'axios';
+
 import { useHistory } from "react-router-dom";
-export default function Dashboard(props) {
+import { Button} from "@material-ui/core";
+export default function Tables(props) {
   // mock async function
-  const xhrRequest = () => {
+  const xhrRequest = async () => {
     return new Promise((resolve, reject) => {
       // mock page data
-      const srcData = [
-        [1, "Jaymie", "Rousby", "jrousby3@indiatimes.com",88155214],
-        [2, "Ripley", "Bratty", "rbratty4@google.ca",77855526]
-      ];
+      
       if (srcData.length !== 0) {
       srcData.sort();
       setTimeout(() => {
@@ -27,7 +26,7 @@ export default function Dashboard(props) {
 
   const [page, setPage] = useState(0);
 
-  const [srcData, setData] = useState([["Loading Data..."]]);
+  const [srcData, setData] = useState([["Chargement des données..."]]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getData = useCallback((page = 0) => {
@@ -35,12 +34,25 @@ export default function Dashboard(props) {
     xhrRequest().then(res => {
       setIsLoading(false);
       setPage(page);
-      setData(res.srcData);
+      
     });
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     getData();
-  }, [getData]); // <-- You need to use dependency array, otherwise the `getData` method runs on every render.
+    axios({
+      headers: { 'Content-Type': 'application/json'},
+      method: 'get',
+      url:'http://127.0.0.1:8000/api/medecine/list/',
+    }).then(response=>{
+
+      var a = response.data.map(function(e) {
+        return Object.keys(e).map(function(k) {
+          return e[k]
+        })
+      })
+      setData(a);
+        })
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   /**************************************************/
 
   const changePage = page => {
@@ -51,19 +63,11 @@ export default function Dashboard(props) {
 
   const columns = [
     {
-     name: "ID",
-     label: "ID",
+     name: "Nom d'utilisateur",
+     label: "Nom d'utilisateur",
      options: {
       filter: true,
       sort: true,
-     }
-    },
-    {
-     name: "Patient",
-     label: "Patient",
-     options: {
-      filter: true,
-      sort: false,
      }
     },
     {
@@ -75,30 +79,37 @@ export default function Dashboard(props) {
      }
     },
     {
-     name: "Télephone",
-     label: "Télephone",
+     name: "Prénom",
+     label: "Prénom",
      options: {
       filter: true,
       sort: false,
      }
     },
     {
-      name: "Ville",
-      label: "Ville",
+     name: "Nom",
+     label: "Nom",
+     options: {
+      filter: true,
+      sort: false,
+     }
+    },
+    {
+      name: "Télephone",
+      label: "Télephone",
       options: {
        filter: true,
        sort: false,
       }
      },
     {
-      name: "",
-
-     label: "",
-
+      name: " ",
+     label: " ",
     options: {
       filter: false,
       sort: false,
       print: false,
+      
         customBodyRender: (value, tableMeta, updateValue) => {
           
             return (
@@ -112,7 +123,7 @@ export default function Dashboard(props) {
                 <Icons.Delete />Delete
               </Button>
                <Button onClick={() => console.log(value, tableMeta) }
-                    style={{marginRight : -70}}
+                    style={{}}
 
                variant="contained"
                size="medium"
@@ -130,7 +141,7 @@ export default function Dashboard(props) {
     serverSide: true,
     page: page,
     searchBox: true,
-    
+   
     onTableChange: (action, tableState) => {
       console.log(action, tableState);
       switch (action) {
@@ -144,22 +155,25 @@ export default function Dashboard(props) {
     }
   };
   const history = useHistory();
-
-  const routeChange = () =>{ 
-    let path = `newpat/`; 
-   // let id=srcData.length+1;
+  
+  const routeChange = () =>{
+    let id=srcData.length+1; 
+    let path = `newmed/${id}`; 
     history.push(path);
+    console.log(history);
   }
+  
   return (
     
     <div>
-<PageTitle title="Patients" button={<Button
-      onClick={routeChange}
+<PageTitle title="Médecins" button={<Button
+                onClick={routeChange}
+
     variant="contained"
     size="medium"
     color="primary"
   >
-      Ajouter Patient
+      Ajouter Médecin
   </Button>} />     
     <MUIDataTable
         title={

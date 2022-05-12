@@ -24,9 +24,9 @@ import Header from "../Header";
 import Sidebar from "../Sidebar";
 
 // pages
-import Dashboard from "../../pages/Médecins/Dashboard";
+import Dashboard from "../../pages/Patient/Dashboard";
 import Typography from "../../pages/typography";
-import Tables from "../../pages/Patient";
+import Tables from "../../pages/Médecins";
 import Icons from "../../pages/icons";
 
 
@@ -79,7 +79,7 @@ function Layout(props) {
                   href={'https://www.facebook.com/'}
                   target={'_blank'}
                 >
-                  <IconButton aria-label="facebook">
+                  <IconButton aria-label="facebook" onClick={()=>console.log(props.history)}>
                     <Icon
                       path={FacebookIcon}
                       size={1}

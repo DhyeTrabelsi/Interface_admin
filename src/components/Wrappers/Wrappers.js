@@ -11,8 +11,8 @@ import classnames from "classnames";
 var useStyles = makeStyles(theme => ({
   badge: {
     fontWeight: 600,
-    height: 16,
-    minWidth: 16,
+    height : 16,
+    minWidth : 16,
   },
 }));
 

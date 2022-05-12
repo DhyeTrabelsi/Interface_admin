@@ -2,10 +2,10 @@ import { makeStyles } from "@material-ui/styles";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 
 export default makeStyles(theme => ({
-  logotype: {
+  logotype : {
     color: "white",
-    marginLeft: theme.spacing(2.5),
-    marginRight: theme.spacing(2.5),
+    marginLeft : theme.spacing(2.5),
+    marginRight : theme.spacing(2.5),
     fontWeight: 500,
     fontSize: 18,
     whiteSpace: "nowrap",
@@ -15,7 +15,7 @@ export default makeStyles(theme => ({
   },
   appBar: {
     backgroundColor: theme.palette.primary.light,
-    width: "100vw",
+    width : "100vw",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["margin"], {
       easing: theme.transitions.easing.sharp,
@@ -23,8 +23,8 @@ export default makeStyles(theme => ({
     }),
   },
   toolbar: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    paddingLeft : theme.spacing(2),
+    paddingRight : theme.spacing(2),
   },
   hide: {
     display: "none",
@@ -35,8 +35,8 @@ export default makeStyles(theme => ({
   search: {
     position: "relative",
     borderRadius: 25,
-    paddingLeft: theme.spacing(2.5),
-    width: 36,
+    paddingLeft : theme.spacing(2.5),
+    width : 36,
     backgroundColor: fade(theme.palette.common.black, 0),
     transition: theme.transitions.create(["background-color", "width"]),
     "&:hover": {
@@ -46,15 +46,15 @@ export default makeStyles(theme => ({
   },
   searchFocused: {
     backgroundColor: fade(theme.palette.common.black, 0.08),
-    width: "100%",
+    width : "100%",
     [theme.breakpoints.up("md")]: {
-      width: 250,
+      width : 250,
     },
   },
   searchIcon: {
-    width: 36,
-    right: 0,
-    height: "100%",
+    width : 36,
+    right : 0,
+    height : "100%",
     position: "absolute",
     display: "flex",
     alignItems: "center",
@@ -65,24 +65,24 @@ export default makeStyles(theme => ({
     },
   },
   searchIconOpened: {
-    right: theme.spacing(1.25),
+    right : theme.spacing(1.25),
   },
   inputRoot: {
     color: "inherit",
-    width: "100%",
+    width : "100%",
   },
   inputInput: {
-    height: 36,
+    height : 36,
     padding: 0,
-    paddingRight: 36 + theme.spacing(1.25),
-    width: "100%",
+    paddingRight : 36 + theme.spacing(1.25),
+    width : "100%",
   },
   messageContent: {
     display: "flex",
     flexDirection: "column",
   },
   headerMenu: {
-    marginTop: theme.spacing(7),
+    marginTop : theme.spacing(7),
   },
   headerMenuList: {
     display: "flex",
@@ -95,18 +95,18 @@ export default makeStyles(theme => ({
     },
   },
   headerMenuButton: {
-    marginLeft: theme.spacing(2),
+    marginLeft : theme.spacing(2),
     padding: theme.spacing(0.5),
   },
   headerMenuButtonSandwich: {
-    marginLeft: 9,
+    marginLeft : 9,
     [theme.breakpoints.down("sm")]: {
-      marginLeft: 0
+      marginLeft : 0
     },
     padding: theme.spacing(0.5),
   },
   headerMenuButtonCollapse: {
-    marginRight: theme.spacing(2),
+    marginRight : theme.spacing(2),
   },
   headerIcon: {
     fontSize: 28,
@@ -116,7 +116,7 @@ export default makeStyles(theme => ({
     color: "white",
   },
   profileMenu: {
-    minWidth: 265,
+    minWidth : 265,
   },
   profileMenuUser: {
     display: "flex",
@@ -127,21 +127,22 @@ export default makeStyles(theme => ({
     color: theme.palette.text.hint,
   },
   profileMenuIcon: {
-    marginRight: theme.spacing(2),
+    marginRight : theme.spacing(2),
     color: theme.palette.text.hint,
     '&:hover': {
       color: theme.palette.primary.main,
     }
   },
   profileMenuLink: {
+    marginTop : 20,
     fontSize: 16,
     textDecoration: "none",
     "&:hover": {
       cursor: "pointer",
-    },
+    }, 
   },
   messageNotification: {
-    height: "auto",
+    height : "auto",
     display: "flex",
     alignItems: "center",
     "&:hover, &:focus": {
@@ -152,25 +153,25 @@ export default makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginRight: theme.spacing(2),
+    marginRight : theme.spacing(2),
   },
   messageNotificationBodySide: {
     alignItems: "flex-start",
-    marginRight: 0,
+    marginRight : 0,
   },
   sendMessageButton: {
     margin: theme.spacing(4),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    marginTop : theme.spacing(2),
+    marginBottom : theme.spacing(2),
     textTransform: "none",
   },
   sendButtonIcon: {
-    marginLeft: theme.spacing(2),
+    marginLeft : theme.spacing(2),
   },
   purchaseBtn: {
     [theme.breakpoints.down('sm')]: {
       display: 'none'
     },
-    marginRight: theme.spacing(3)
+    marginRight : theme.spacing(3)
   }
 }));

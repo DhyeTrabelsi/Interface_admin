@@ -3,21 +3,17 @@ import { CircularProgress } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import * as Icons from "@material-ui/icons";
 import PageTitle from "../../components/PageTitle/PageTitle";
-
+import {Button} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { Button} from "@material-ui/core";
-export default function Tables(props) {
-  // mock async function
-  const xhrRequest = () => {
+import axios from 'axios';
+
+export default function Dashboard(props) {
+  
+  const xhrRequest = async () => {
     return new Promise((resolve, reject) => {
-      // mock page data
-      const srcData = [
-        [1, "Linc", "Draycott", "ldraycott0@blog.com",88155214],
-        [2, "Ronni", "Stare", "rstare1@vimeo.com",54255444],
-        [3, "Robb", "Hyde", "rhyde2@1und1.de",54477777],
-        [4, "Jaymie", "Rousby", "jrousby3@indiatimes.com",88155214],
-        [5, "Ripley", "Bratty", "rbratty4@google.ca",77855526]
-      ];
+
+      
+         
       if (srcData.length !== 0) {
       srcData.sort();
       setTimeout(() => {
@@ -30,8 +26,7 @@ export default function Tables(props) {
   };
 
   const [page, setPage] = useState(0);
-
-  const [srcData, setData] = useState([["Loading Data..."]]);
+  const [srcData, setData] = useState([["Chargement des données..."]]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getData = useCallback((page = 0) => {
@@ -39,12 +34,25 @@ export default function Tables(props) {
     xhrRequest().then(res => {
       setIsLoading(false);
       setPage(page);
-      setData(res.srcData);
     });
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     getData();
-  }, [getData]); // <-- You need to use dependency array, otherwise the `getData` method runs on every render.
+    axios({
+      headers: { 'Content-Type': 'application/json'},
+      method: 'get',
+      url:'http://127.0.0.1:8000/api/patient/list/',
+    }).then(response=>{
+
+      var a = response.data.map(function(e) {
+        return Object.keys(e).map(function(k) {
+          return e[k]
+        })
+      })
+      setData(a);
+        })
+
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
   /**************************************************/
 
   const changePage = page => {
@@ -55,19 +63,11 @@ export default function Tables(props) {
 
   const columns = [
     {
-     name: "ID",
-     label: "ID",
+     name: "Nom d'utilisateur",
+     label: "Nom d'utilisateur",
      options: {
       filter: true,
       sort: true,
-     }
-    },
-    {
-     name: "Médecin",
-     label: "Médecin",
-     options: {
-      filter: true,
-      sort: false,
      }
     },
     {
@@ -79,29 +79,38 @@ export default function Tables(props) {
      }
     },
     {
-     name: "Télephone",
-     label: "Télephone",
+     name: "Prénom",
+     label: "Prénom",
      options: {
       filter: true,
       sort: false,
      }
     },
     {
-      name: "Ville",
-      label: "Ville",
+     name: "Nom",
+     label: "Nom",
+     options: {
+      filter: true,
+      sort: false,
+     }
+    },
+    {
+      name: "Télephone",
+      label: "Télephone",
       options: {
        filter: true,
        sort: false,
       }
      },
     {
-      name: "Actions",
-     label: "Actions",
+      name: "",
+
+     label: "",
+
     options: {
       filter: false,
       sort: false,
       print: false,
-      
         customBodyRender: (value, tableMeta, updateValue) => {
           
             return (
@@ -109,13 +118,13 @@ export default function Tables(props) {
                 <Button onClick={() => console.log(value, tableMeta) }
                 variant="contained"
                 size="medium"
-                style={{marginRight: 12}}
+                style={{marginRight : 12}}
                 color="secondary"
               >
                 <Icons.Delete />Delete
               </Button>
                <Button onClick={() => console.log(value, tableMeta) }
-                    style={{marginRight: -70}}
+                    style={{}}
 
                variant="contained"
                size="medium"
@@ -133,7 +142,7 @@ export default function Tables(props) {
     serverSide: true,
     page: page,
     searchBox: true,
-   
+    
     onTableChange: (action, tableState) => {
       console.log(action, tableState);
       switch (action) {
@@ -147,24 +156,22 @@ export default function Tables(props) {
     }
   };
   const history = useHistory();
-  
+
   const routeChange = () =>{ 
-    let path = `newmed/`; 
-   // let id=srcData.length+1;
+    let id=srcData.length+1;
+    let path = `newpat/${id}`; 
     history.push(path);
   }
-  
   return (
     
     <div>
-<PageTitle title="Médecins" button={<Button
-                onClick={routeChange}
-
+<PageTitle title="Patients" button={<Button
+      onClick={routeChange}
     variant="contained"
     size="medium"
     color="primary"
   >
-      Ajouter Médecin
+      Ajouter Patient
   </Button>} />     
     <MUIDataTable
         title={
@@ -172,7 +179,7 @@ export default function Tables(props) {
             {isLoading && (
               <CircularProgress
                 size={24}
-                style={{ marginLeft: 15, position: "relative", top: 10 }}
+                style={{ marginLeft : 15, position: "relative", top : 10 }}
               />
             )}
           </div>
