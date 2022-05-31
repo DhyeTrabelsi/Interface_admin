@@ -36,8 +36,8 @@ const messages = [
   {
     id: 0,
     variant: "warning",
-    name: "Jane Hew",
-    message: "Hey! How is it going?",
+    name: "Patient",
+    message: "Hey!",
     time: "9:32",
   }
 ];

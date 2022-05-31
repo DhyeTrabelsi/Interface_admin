@@ -13,7 +13,8 @@ import { useUserState } from "../context/UserContext";
 export default function App() {
   // global
   var { isAuthenticated } = useUserState();
-
+  document.title = "ContreAVC";
+ 
   return (
     <HashRouter>
       <Switch>

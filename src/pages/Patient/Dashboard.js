@@ -6,14 +6,12 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import {Button} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 export default function Dashboard(props) {
   
   const xhrRequest = async () => {
     return new Promise((resolve, reject) => {
-
-      
-         
       if (srcData.length !== 0) {
       srcData.sort();
       setTimeout(() => {
@@ -24,7 +22,34 @@ export default function Dashboard(props) {
       }, 1000);}
     });
   };
+  var patdel;
 
+  const deletepat = async() =>{
+    confirmAlert({
+      title: 'supprimer '+patdel+' ?',
+      message: 'Êtes-vous sûr de le faire.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {axios({
+            headers: { 'Content-Type': 'application/json'},
+            method: 'delete',
+            url:'http://127.0.0.1:8000/api/delete/patient/'+patdel+'/',
+          }).then(response=>{
+            window.location.reload(false);
+      
+              })
+            }
+        },
+        {
+          label: 'No',
+
+          onClick: () => {}
+        }
+      ]
+    });
+    
+}
   const [page, setPage] = useState(0);
   const [srcData, setData] = useState([["Chargement des données..."]]);
   const [isLoading, setIsLoading] = useState(false);
@@ -115,7 +140,9 @@ export default function Dashboard(props) {
           
             return (
               <div>
-                <Button onClick={() => console.log(value, tableMeta) }
+                <Button onClick={() =>{patdel = tableMeta.rowData[0];
+                
+                deletepat()} }
                 variant="contained"
                 size="medium"
                 style={{marginRight : 12}}
@@ -123,14 +150,7 @@ export default function Dashboard(props) {
               >
                 <Icons.Delete />Delete
               </Button>
-               <Button onClick={() => console.log(value, tableMeta) }
-                    style={{}}
-
-               variant="contained"
-               size="medium"
-             >
-               <Icons.Edit />Edit
-             </Button></div>
+           </div>
             );
         }
     }
@@ -142,7 +162,8 @@ export default function Dashboard(props) {
     serverSide: true,
     page: page,
     searchBox: true,
-    
+    selectableRows: 'none',
+
     onTableChange: (action, tableState) => {
       console.log(action, tableState);
       switch (action) {

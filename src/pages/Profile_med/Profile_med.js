@@ -28,6 +28,7 @@ export default function Profile_med() {
   var [PrenomValue, setPrenomValue] = useState("");
   var [EmailValue, setEmailValue] = useState("");
   var [TelephoneValue, setTelephoneValue] = useState("");
+  var [PostionValue, setPostionValue] = useState("");
 
   const history = useHistory();
   const positions = [
@@ -40,10 +41,9 @@ export default function Profile_med() {
   ];
   let id;
 
-
-    
   const Setnewmed = async() =>{
-    const NewmedJson = { "username": String(usernameValue), "email":String(EmailValue),"password": String(passwordValue), "first_name":String(PrenomValue),"last_name": String(NomValue), "telephone":String(TelephoneValue)};
+    const NewmedJson = { "username": String(usernameValue), "email":String(EmailValue),"password": String(passwordValue),
+     "first_name":String(PrenomValue),"last_name": String(NomValue), "telephone":String(TelephoneValue), "postion":String(PostionValue)};
     await axios({
       headers: { 'Content-Type': 'application/json'},
       method: 'post',
@@ -55,17 +55,13 @@ export default function Profile_med() {
       
         })
         .catch((error) => {
-        console.log('error')
-        if(error.response.status === 401){
-          console.log('error401');
-          id = 1;
-        }
+        
         if(error.response.status === 400){
-          console.log("médecin avec ce nom d'utilisateur existe déjà");
-          id = 1;
-        }
-          
-      })
+          if((JSON.stringify(error.response.data.email)) === '["Enter a valid email address."]')
+          {id = 2;}
+          else{console.log("médecin avec ce nom d'utilisateur existe déjà");
+          id = 1;}
+        }})
     handleNotificationCall()
 }
   return (
@@ -123,6 +119,12 @@ export default function Profile_med() {
         <TextField  type="password" id="Password" label="Password" autoComplete="new-password" variant="standard"   value={passwordValue}
                 onChange={e => setPasswordValue(e.target.value)} />
     </Box>
+    <Box sx={{ display: 'flex', alignItems: 'flex-end' ,  mr: 17, mb: 8,}}>
+        <icons.LocationOnOutlined sx={{ color: 'action.active', mr: 2,width : 40,
+          height : 40,  }} />
+        <TextField   id="Postion" label="Postion"  variant="standard"   value={PostionValue}
+                onChange={e => setPostionValue(e.target.value)} />
+    </Box>
     </Box>
 
     </Widget>
@@ -137,6 +139,9 @@ export default function Profile_med() {
   spacing={1}
 >
 <Button
+disabled={
+  usernameValue.length === 0 || passwordValue.length === 0 || NomValue.length === 0 || PrenomValue.length === 0 || EmailValue.length === 0 || TelephoneValue.length === 0
+}
      onClick={() => Setnewmed()}
     variant="contained"
     size="medium"
@@ -159,8 +164,6 @@ export default function Profile_med() {
   </Stack>
 </>
   );
-
-
 
  function sendNotification(componentProps, options) {
     return toast(
@@ -203,6 +206,17 @@ export default function Profile_med() {
           extraButtonClick: retryErrorNotification,
         };
         break;
+      
+        case 2:
+          componentProps = {
+            type: "message",
+            message: "Address email invalide",
+            variant: "contained",
+            color: "secondary",
+            extraButton: " ",
+            extraButtonClick: retryErrorNotification,
+          };
+          break; 
       default:
         componentProps = {
           type: "shipped",

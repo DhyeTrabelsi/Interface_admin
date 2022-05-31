@@ -4,7 +4,8 @@ import MUIDataTable from "mui-datatables";
 import * as Icons from "@material-ui/icons";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import axios from 'axios';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useHistory } from "react-router-dom";
 import { Button} from "@material-ui/core";
 export default function Tables(props) {
@@ -23,7 +24,35 @@ export default function Tables(props) {
       }, 1000);}
     });
   };
+  var meddel;
 
+  const deletemed = async() =>{
+    confirmAlert({
+      title: 'supprimer '+meddel+' ?',
+      message: 'Êtes-vous sûr de le faire.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {axios({
+            headers: { 'Content-Type': 'application/json'},
+            method: 'delete',
+            url:'http://127.0.0.1:8000/api/delete/medecine/'+meddel+'/',
+          }).then(response=>{
+            console.log('success');
+            window.location.reload(false);
+      
+              })
+             }
+        },
+        {
+          label: 'No',
+
+          onClick: () => {}
+        }
+      ]
+    });
+    
+}
   const [page, setPage] = useState(0);
 
   const [srcData, setData] = useState([["Chargement des données..."]]);
@@ -114,7 +143,8 @@ export default function Tables(props) {
           
             return (
               <div>
-                <Button onClick={() => console.log(value, tableMeta) }
+                <Button onClick={() => {meddel = tableMeta.rowData[0];
+                deletemed()} }
                 variant="contained"
                 size="medium"
                 style={{marginRight : 12}}
@@ -122,14 +152,7 @@ export default function Tables(props) {
               >
                 <Icons.Delete />Delete
               </Button>
-               <Button onClick={() => console.log(value, tableMeta) }
-                    style={{}}
-
-               variant="contained"
-               size="medium"
-             >
-               <Icons.Edit />Edit
-             </Button></div>
+              </div>
             );
         }
     }
@@ -141,7 +164,8 @@ export default function Tables(props) {
     serverSide: true,
     page: page,
     searchBox: true,
-   
+    selectableRows: 'none',
+    filtering: true, 
     onTableChange: (action, tableState) => {
       console.log(action, tableState);
       switch (action) {
