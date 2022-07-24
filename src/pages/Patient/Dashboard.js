@@ -5,6 +5,7 @@ import * as Icons from "@material-ui/icons";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import {Button} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { ipconfig } from "../../components/Ipconfig";
 import axios from 'axios';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -34,7 +35,7 @@ export default function Dashboard(props) {
           onClick: () => {axios({
             headers: { 'Content-Type': 'application/json'},
             method: 'delete',
-            url:'http://127.0.0.1:8000/api/delete/patient/'+patdel+'/',
+            url:'http://'+ipconfig+':8000/api/delete/patient/'+patdel+'/',
           }).then(response=>{
             window.location.reload(false);
       
@@ -66,7 +67,7 @@ export default function Dashboard(props) {
     axios({
       headers: { 'Content-Type': 'application/json'},
       method: 'get',
-      url:'http://127.0.0.1:8000/api/patient/list/',
+      url:'http://'+ipconfig+':8000/api/patient/list/',
     }).then(response=>{
 
       var a = response.data.map(function(e) {
@@ -145,10 +146,9 @@ export default function Dashboard(props) {
                 deletepat()} }
                 variant="contained"
                 size="medium"
-                style={{marginRight : 12}}
-                color="secondary"
+                color="#495D7D"
               >
-                <Icons.Delete />Delete
+                <Icons.Delete />Supprimer
               </Button>
            </div>
             );
@@ -190,7 +190,7 @@ export default function Dashboard(props) {
       onClick={routeChange}
     variant="contained"
     size="medium"
-    color="primary"
+    color="#E8F9FD"
   >
       Ajouter Patient
   </Button>} />     

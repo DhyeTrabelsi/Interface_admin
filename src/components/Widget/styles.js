@@ -3,14 +3,14 @@ import { makeStyles } from "@material-ui/styles";
 export default makeStyles(theme => ({
   widgetWrapper: {
     display: "flex",
-    minHeight: "100%",
-    minWidth: "100%",
+    minHeight : "100%",
+    minWidth : "100%",
 
   },
   widgetHeader: {
     
     padding: theme.spacing(3),
-    paddingBottom: theme.spacing(1),
+    paddingBottom : theme.spacing(1),
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -24,10 +24,10 @@ export default makeStyles(theme => ({
   },
   widgetBody: {
   
-    paddingBottom: theme.spacing(2),
+    paddingBottom : theme.spacing(2),
   
-    paddingLeft: theme.spacing(12),
-    paddingTop: theme.spacing(3),
+    paddingLeft : theme.spacing(12),
+    paddingTop : theme.spacing(3),
 
     
   },
@@ -45,11 +45,11 @@ export default makeStyles(theme => ({
   moreButton: {
     margin: -theme.spacing(1),
     padding: 0,
-    width: 40,
-    height: 40,
+    width : 40,
+    height : 40,
     color: theme.palette.text.hint,
     "&:hover": {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor:  '#495D7D',
       color: "rgba(255, 255, 255, 0.35)",
     },
   },

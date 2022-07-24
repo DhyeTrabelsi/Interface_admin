@@ -17,7 +17,8 @@ import useStyles from "./styles";
 import "./Login.scss";
 
 // logo
-import logo from "./logo.png";
+import logo from "./logotrans.png";
+import { ipconfig } from "../../components/Ipconfig";
 
 
 
@@ -37,7 +38,7 @@ function Login(props) {
     await axios({
       headers: { 'Content-Type': 'application/json'},
       method: 'post',
-      url:'http://127.0.0.1:8000/api/login/admin/',
+      url:'http://'+ipconfig+':8000/api/login/admin/',
       data: LoginJson,
     }).then(response=>{
       loginUser(
@@ -69,7 +70,6 @@ function Login(props) {
       <div className={classes.logotypeContainer}>
 
       <img src={logo} alt="logo" className={classes.logotypeImage} />
-      <p className="system"> SYSTEMS </p> 
          
       </div>
       <div className={classes.formContainer}>
@@ -77,8 +77,8 @@ function Login(props) {
           <Tabs
             value={activeTabId}
             onChange={(e, id) => setActiveTabId(id)}
-            indicatorColor="primary"
-            textColor="primary"
+            indicatorColor= '#495D7D'
+            textColor= '#495D7D'
             centered
           >
             <Tab label="Login" classes={{ root: classes.tab }} />
@@ -135,14 +135,14 @@ function Login(props) {
                      
                     }
                     variant="contained"
-                    color="primary"
+                    color= '#495D7D'
                     size="large"
                   >
                     Login
                   </Button>
                 )}
                 <Button
-                  color="primary"
+                  color= '#495D7D'
                   size="large"
                   className={classes.forgetButton}
                 >

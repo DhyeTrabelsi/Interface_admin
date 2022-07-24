@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import { useHistory } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Notification from "../../components/Notification";
-
+import { ipconfig } from "../../components/Ipconfig";
 import TextField from '@mui/material/TextField';
 import * as icons from '@mui/icons-material';
 
@@ -47,7 +47,7 @@ export default function Profile_med() {
     await axios({
       headers: { 'Content-Type': 'application/json'},
       method: 'post',
-      url:'http://127.0.0.1:8000/api/signup/medecine/',
+      url:'http://'+ipconfig+':8000/api/signup/medecine/',
       data: NewmedJson,
     }).then(response=>{
       console.log('success');

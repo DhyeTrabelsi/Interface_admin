@@ -32,7 +32,7 @@ const Widget = ({
             </Typography>
             {!disableWidgetMenu && (
               <IconButton
-                color="primary"
+                color="#495D7D"
                 classes={{ root: classes.moreButton }}
                 aria-owns="widget-menu"
                 aria-haspopup="true"
@@ -80,11 +80,11 @@ const Widget = ({
 const styles = theme => ({
   widgetWrapper: {
     display: "flex",
-    minHeight: "100%"
+    minHeight : "100%"
   },
   widgetHeader: {
     padding: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit,
+    paddingBottom :  theme.spacing.unit,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center"
@@ -93,9 +93,9 @@ const styles = theme => ({
     boxShadow: theme.customShadows.widget
   },
   widgetBody: {
-    paddingBottom: theme.spacing.unit * 3,
-    paddingRight: theme.spacing.unit * 3,
-    paddingLeft: theme.spacing.unit * 3
+    paddingBottom : theme.spacing.unit * 3,
+    paddingRight : theme.spacing.unit * 3,
+    paddingLeft : theme.spacing.unit * 3
   },
   noPadding: {
     padding: 0
@@ -109,11 +109,11 @@ const styles = theme => ({
   moreButton: {
     margin: -theme.spacing.unit,
     padding: 0,
-    width: 40,
-    height: 40,
-    color: theme.palette.text.hint,
+    width : 40,
+    height : 40,
+    color:  '#495D7D',
     "&:hover": {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: '#495D7D',
       color: "rgba(255, 255, 255, 0.35)"
     }
   }

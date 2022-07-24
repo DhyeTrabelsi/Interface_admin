@@ -26,15 +26,12 @@ import {
 
 const structure = [
   { id: 0, label: "Patients", link: "/app/patients", icon: <HomeIcon /> },
-  
   { id: 1, label: "Médecins", link: "/app/medecine", icon: <TableIcon /> },
-
   { id: 5, type: "divider" },
   { id: 6, type: "title", label: "HELP" },
   { id: 7, label: "Library", link: "", icon: <LibraryIcon /> },
   { id: 8, label: "Support", link: "", icon: <SupportIcon /> },
-  { id: 10, type: "divider" },
-  
+  { id: 10, type: "divider" },  
 ];
 
 function Sidebar({ location }) {

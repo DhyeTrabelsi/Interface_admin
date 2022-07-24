@@ -14,6 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { ipconfig } from "../../components/Ipconfig";
 // components
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Widget from "../../components/Widget/Widget";
@@ -43,7 +44,7 @@ const positions = [
 let id;
 const Setnewpat = async() =>{
 
-  const NewmedJson ={
+  const NewpatJson ={
     "username": String(usernameValue),
     "email": String(EmailValue),
     "password": String(passwordValue),
@@ -53,6 +54,7 @@ const Setnewpat = async() =>{
     "birthday": String(birthday),
     "gender": String(Sexe),
     "avg_glucose_level": null,
+    "poids": 0,
     "bmi": null,
     "ever_married": null,
     "smoking_status": null,
@@ -66,16 +68,14 @@ const Setnewpat = async() =>{
   await axios({
     headers: { 'Content-Type': 'application/json'},
     method: 'post',
-    url:'http://127.0.0.1:8000/api/signup/patient/',
-    data: NewmedJson,
+    url:'http://'+ipconfig+':8000/api/signup/patient/',
+    data: NewpatJson,
   }).then(response=>{
     console.log('success');
     id = 0;
     
       })
-      .catch((error) => {
-      console.log(NewmedJson)
-      
+      .catch((error) => {      
       if(error.response.status === 400){
         if((JSON.stringify(error.response.data.email)) === '["Enter a valid email address."]'){
           id = 2;
@@ -257,7 +257,7 @@ disabled={
       case 1:
         componentProps = {
           type: "message",
-          message: "Médecin existe déjà",
+          message: "Le patient existe déjà",
           variant: "contained",
           color: "secondary",
           extraButton: " ",

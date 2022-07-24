@@ -117,13 +117,13 @@ export default makeStyles(theme => ({
   },
   textFieldUnderline: {
     "&:before": {
-      borderBottomColor: theme.palette.primary.light,
+      borderBottomColor:  '#495D7D',
     },
     "&:after": {
-      borderBottomColor: theme.palette.primary.main,
+      borderBottomColor: '#E8F9FD',
     },
     "&:hover:before": {
-      borderBottomColor: `${theme.palette.primary.light} !important`,
+      borderBottomColor: `${'#E8F9FD'} !important`,
     },
   },
   textField: {

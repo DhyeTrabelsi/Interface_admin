@@ -7,6 +7,7 @@ import axios from 'axios';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useHistory } from "react-router-dom";
+import { ipconfig } from "../../components/Ipconfig";
 import { Button} from "@material-ui/core";
 export default function Tables(props) {
   // mock async function
@@ -36,7 +37,7 @@ export default function Tables(props) {
           onClick: () => {axios({
             headers: { 'Content-Type': 'application/json'},
             method: 'delete',
-            url:'http://127.0.0.1:8000/api/delete/medecine/'+meddel+'/',
+            url:'http://'+ipconfig+':8000/api/delete/medecine/'+meddel+'/',
           }).then(response=>{
             console.log('success');
             window.location.reload(false);
@@ -71,7 +72,7 @@ export default function Tables(props) {
     axios({
       headers: { 'Content-Type': 'application/json'},
       method: 'get',
-      url:'http://127.0.0.1:8000/api/medecine/list/',
+      url:'http://'+ipconfig+':8000/api/medecine/list/',
     }).then(response=>{
 
       var a = response.data.map(function(e) {
@@ -148,9 +149,9 @@ export default function Tables(props) {
                 variant="contained"
                 size="medium"
                 style={{marginRight : 12}}
-                color="secondary"
+                color= '#495D7D'
               >
-                <Icons.Delete />Delete
+                <Icons.Delete />Supprimer
               </Button>
               </div>
             );
@@ -195,7 +196,7 @@ export default function Tables(props) {
 
     variant="contained"
     size="medium"
-    color="primary"
+    color="#495D7D"
   >
       Ajouter Médecin
   </Button>} />     
