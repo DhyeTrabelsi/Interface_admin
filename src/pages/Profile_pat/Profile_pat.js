@@ -63,7 +63,8 @@ const Setnewpat = async() =>{
      "postion":String(PostionValue),
      "hypertension": null,
      "heart_disease": null,
-     "type_de_travail": null
+     "type_de_travail": null,
+     "notifier": 0,
 }
   await axios({
     headers: { 'Content-Type': 'application/json'},
